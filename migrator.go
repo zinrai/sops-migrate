@@ -50,7 +50,12 @@ func (m *Migrator) Run() ([]Result, error) {
 func (m *Migrator) collectFiles() ([]string, error) {
 	var files []string
 
-	err := filepath.Walk(".", func(path string, info os.FileInfo, err error) error {
+	target := m.config.Target
+	if target == "" {
+		target = "."
+	}
+
+	err := filepath.Walk(target, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}
@@ -62,8 +67,7 @@ func (m *Migrator) collectFiles() ([]string, error) {
 			return nil
 		}
 
-		cleanPath := strings.TrimPrefix(path, "./")
-		files = append(files, cleanPath)
+		files = append(files, path)
 
 		return nil
 	})

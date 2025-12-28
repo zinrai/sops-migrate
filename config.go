@@ -3,12 +3,14 @@ package main
 import (
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/goccy/go-yaml"
 )
 
 type Config struct {
-	Files []FileConfig `yaml:"files"`
+	Target string       `yaml:"target"`
+	Files  []FileConfig `yaml:"files"`
 }
 
 type FileConfig struct {
@@ -31,8 +33,15 @@ func LoadConfig(path string) (*Config, error) {
 }
 
 func (c *Config) GetInputType(path string) string {
+	// pathからtargetプレフィックスを除去して比較
+	relativePath := path
+	if c.Target != "" {
+		relativePath = strings.TrimPrefix(path, c.Target)
+		relativePath = strings.TrimPrefix(relativePath, "/")
+	}
+
 	for _, f := range c.Files {
-		if f.Path == path {
+		if f.Path == relativePath {
 			return f.InputType
 		}
 	}

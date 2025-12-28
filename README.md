@@ -13,10 +13,10 @@ $ go install github.com/zinrai/sops-migrate@latest
 Prepare repository
 
 ```bash
-cp -r old-repo sops-repo
-cd sops-repo
-rm -rf .git
-git init
+$ cp -r old-repo sops-repo
+$ cd sops-repo
+$ rm -rf .git
+$ git init
 ```
 
 Run migration
@@ -27,9 +27,11 @@ $ sops-migrate -config sops-migrate.yaml
 
 ## Configuration
 
-Create a `sops-migrate.yaml` file to specify input types for files that require explicit `--input-type`:
+Create a `sops-migrate.yaml` file to specify the target directory and input types for files that require explicit `--input-type`:
 
 ```yaml
+target: secrets/
+
 files:
   - path: ssh_keys/id_ed25519
     input_type: binary
@@ -44,7 +46,9 @@ files:
     input_type: dotenv
 ```
 
-Files not listed will be encrypted with `sops encrypt -i <path>` (without `--input-type`).
+- `target`: Directory to encrypt (required)
+- `files`: List of files requiring explicit `--input-type` (paths are relative to target)
+- Files not listed will be encrypted with `sops encrypt -i <path>` (without `--input-type`).
 
 ## Options
 
