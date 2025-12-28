@@ -1,0 +1,17 @@
+target: secrets/
+
+files:
+  - path: ssh_keys/id_ed25519
+    input_type: binary
+
+  - path: ssh_keys/id_ed25519.pub
+    input_type: binary
+
+  - path: certs/server.key
+    input_type: binary
+
+  - path: config/app.ini
+    input_type: ini
+
+  - path: config/.env.production
+    input_type: dotenv
