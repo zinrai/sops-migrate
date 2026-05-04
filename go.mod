@@ -2,4 +2,4 @@ module github.com/zinrai/sops-migrate
 
 go 1.24.0
 
-require github.com/goccy/go-yaml v1.19.1
+require github.com/goccy/go-yaml v1.19.2
