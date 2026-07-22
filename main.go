@@ -9,7 +9,13 @@ import (
 func main() {
 	configPath := flag.String("config", "", "Path to config file")
 	dryRun := flag.Bool("dry-run", false, "Show commands without executing")
+	showVersion := flag.Bool("version", false, "Print version information and exit")
 	flag.Parse()
+
+	if *showVersion {
+		printVersion()
+		os.Exit(0)
+	}
 
 	if *configPath == "" {
 		fmt.Fprintln(os.Stderr, "Error: -config is required")
