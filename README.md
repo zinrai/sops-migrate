@@ -2,12 +2,6 @@
 
 A command-line tool for migrating unencrypted Git repositories to sops-encrypted repositories.
 
-## Installation
-
-```bash
-$ go install github.com/zinrai/sops-migrate@latest
-```
-
 ## Usage
 
 Prepare repository
